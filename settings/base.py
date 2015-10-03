@@ -13,8 +13,27 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+import json
+
+from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# JSON-based secrets module
+with open('./settings/config/secrets.json') as f:
+    secrets = json.loads(f.read())
+
+
+def get_secrete(setting, secrets=secrets):
+    """ Get the secrete variable or return explicit exception"""
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = 'Set the {0} environment variable'.format(setting)
+        raise ImproperlyConfigured(error_msg)
+
+
+FILENAME = get_secrete('FILENAME')
 
 
 # Quick-start development settings - unsuitable for production
