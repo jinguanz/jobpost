@@ -17,7 +17,12 @@ import json
 
 from django.core.exceptions import ImproperlyConfigured
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+from unipath import Path
+
+BASE_DIR = Path(__file__).ancestor(2)
+print 'BASE_DIR' + str(BASE_DIR)
+STATIC_ROOT = BASE_DIR.child('static')
+print 'STATIC_ROOT' + str(STATIC_ROOT)
 
 # JSON-based secrets module
 with open('./settings/config/secrets.json') as f:
