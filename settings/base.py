@@ -12,17 +12,17 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
 import json
 
 from django.core.exceptions import ImproperlyConfigured
-
 from unipath import Path
 
 BASE_DIR = Path(__file__).ancestor(2)
 print 'BASE_DIR' + str(BASE_DIR)
 STATIC_ROOT = BASE_DIR.child('static')
 print 'STATIC_ROOT' + str(STATIC_ROOT)
+MEDIA_ROOT = BASE_DIR.child('media')
+print 'MEDIA_ROOT' + str(MEDIA_ROOT)
 
 # JSON-based secrets module
 with open('./settings/config/secrets.json') as f:
@@ -102,8 +102,10 @@ WSGI_APPLICATION = 'employer_jobpost.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'employer',
+        'USER': 'root',
+        # 'PASSWORD': 'zjg',
     }
 }
 
@@ -126,3 +128,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
