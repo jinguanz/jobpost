@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+<!-- Default context variable-->
+{% if employer_list %}
+    <ul>
+        {% for emp in employer_list %}
+            <li><a href="{{ emp.get_absolute_url }}">{{ emp.employer_name }}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No Employer.</p>
+{% endif %}
+<ul>
+    <li><a href="/employers/create">Create a new employer</a></li>
+</ul>

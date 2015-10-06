@@ -1,18 +1,41 @@
-from django.shortcuts import render, get_object_or_404
+from django.contrib import messages
+from django.views.generic import CreateView, UpdateView, DetailView, ListView
 
 from .models import Employer
 
 
 # Create your views here.
 
+class EmployerActionMixin(object):
+    @property
+    def success_msg(self):
+        return NotImplemented
 
-def employer(request):
-    employer_list = Employer.objects.all()
-    context = {'employer_list': employer_list}
-    return render(request, 'jobpost/employer.html', context)
+    def form_valid(self, form):
+        messages.info(self.request, self.success_msg)
+        return super(EmployerActionMixin, self).form_valid(form)
 
 
-def employer_profile(request, employer_id):
-    employer = get_object_or_404(Employer, pk=employer_id)
-    context = {'employer': employer}
-    return render(request, 'jobpost/employer_profile.html', context)
+class EmployerCreateView(EmployerActionMixin, CreateView):
+    model = Employer
+    # Todo: how can generate view with all fields
+    fields = ('employer_name', 'email',)
+    success_msg = 'Employer Created'
+    template_name = 'jobpost/employer_create.html'
+
+
+class EmployerUpdateView(EmployerActionMixin, UpdateView):
+    model = Employer
+    fields = ('employer_name',)
+    success_msg = 'Employer Updated'
+    template_name = 'jobpost/employer_update.html'
+
+
+class EmployerListView(ListView):
+    model = Employer
+    template_name = 'jobpost/employer_list.html'
+
+
+class EmployerDetailView(DetailView):
+    model = Employer
+    template_name = 'jobpost/employer_detail.html'

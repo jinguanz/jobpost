@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+{% if employer %}
+    <ul>
+        <li><a href="{{ employer.get_absolute_url }}update">Update</a></li>
+        <li>{{ employer.employer_name }}</li>
+        <li>{{ employer.email }}</li>
+        <li>{{ employer.plan.name }}</li>
+    </ul>
+{% else %}
+    <p>No Employer.</p>
+{% endif %}

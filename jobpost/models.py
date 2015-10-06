@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from model_utils.models import TimeStampedModel
 
@@ -69,6 +70,9 @@ class Employer(Account):
 
     def __unicode__(self):
         return '{0}'.format(self.employer_name)
+
+    def get_absolute_url(self):
+        return reverse('employers:detail', kwargs={'pk': self.pk})
 
 
 class CreditCard(TimeStampedModel):
