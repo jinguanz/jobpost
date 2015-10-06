@@ -23,6 +23,7 @@ STATIC_ROOT = BASE_DIR.child('static')
 print 'STATIC_ROOT' + str(STATIC_ROOT)
 MEDIA_ROOT = BASE_DIR.child('media')
 print 'MEDIA_ROOT' + str(MEDIA_ROOT)
+TEMPLATE_PATH = BASE_DIR.child('templates')
 
 # JSON-based secrets module
 with open('./settings/config/secrets.json') as f:
@@ -81,7 +82,7 @@ ROOT_URLCONF = 'employer_jobpost.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [TEMPLATE_PATH],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
