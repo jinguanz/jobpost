@@ -19,14 +19,14 @@ class EmployerActionMixin(object):
 class EmployerCreateView(EmployerActionMixin, CreateView):
     model = Employer
     # Todo: how can generate view with all fields
-    fields = ('employer_name', 'email',)
+    fields = ('employer_name', 'email', 'tel_country_code', 'tel_area_code', 'tel_remain')
     success_msg = 'Employer Created'
     template_name = 'jobpost/employer_create.html'
 
 
 class EmployerUpdateView(EmployerActionMixin, UpdateView):
     model = Employer
-    fields = ('employer_name',)
+    fields = ('employer_name', 'email', 'tel_country_code', 'tel_area_code', 'tel_remain')
     success_msg = 'Employer Updated'
     template_name = 'jobpost/employer_update.html'
 

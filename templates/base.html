@@ -1,0 +1,22 @@
+{# templates/base.html #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% block title %}My amazing site{% endblock %}</title>
+</head>
+
+<body>
+<div id="sidebar">
+    {% block sidebar %}
+        <ul>
+            <li><a href="{% url 'employers:list' %}">Home</a></li>
+            <li><a href="{% url  'employers:list' %}">Blog</a></li>
+        </ul>
+    {% endblock %}
+</div>
+
+<div id="content">
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>

@@ -68,6 +68,10 @@ class Employer(Account):
     register_start_date = models.DateField(null=True)
     register_end_date = models.DateField(null=True)
 
+    @property
+    def phone_number(self):
+        return '(' + str(self.tel_country_code) + ')' + self.tel_area_code + self.tel_remain
+
     def __unicode__(self):
         return '{0}'.format(self.employer_name)
 

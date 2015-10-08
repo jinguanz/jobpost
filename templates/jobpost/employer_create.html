@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title></title>
     <li>Create a new employer</li>
-    {{ form.as_p }} <!--Show form in html-->
+    <form action="{{ get_absolute_url }}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit"/>
+    </form>
 </head>
 <body>
 

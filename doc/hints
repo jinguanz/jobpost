@@ -1,0 +1,3 @@
+# how list view, createview and updateview work together
+For update, after update model, it will automically go back to detailview based on url. Same thing for create. We can overrite get_success_url to customize.
+http://www.onespacemedia.com/news/2014/feb/5/getting-started-generic-class-based-views-django/
