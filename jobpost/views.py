@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.views.generic import CreateView, UpdateView, DetailView, ListView
 
-from .models import Employer
+from .models import Employer, Job
 
 
 # Create your views here.
@@ -39,3 +39,41 @@ class EmployerListView(ListView):
 class EmployerDetailView(DetailView):
     model = Employer
     template_name = 'jobpost/employer_detail.html'
+
+
+class JobActionMixin(object):
+    @property
+    def success_msg(self):
+        return NotImplemented
+
+    def get_context_data(self, **kwargs):
+        """Add employer pk to the context"""
+        context = super(JobActionMixin, self).get_context_data(**kwargs)
+        context['employer_pk'] = self.kwargs['employer_pk']
+        return context
+
+
+class JobCreateView(JobActionMixin, CreateView):
+    """Job creation view"""
+    model = Job
+    fields = ('title', 'employer')
+    template_name = 'jobpost/job_create.html'
+    success_msg = 'Job created'
+
+
+class JobUpdateView(JobActionMixin, UpdateView):
+    model = Job
+    success_msg = 'Job Updated'
+    template_name = 'jobpost/job_update.html'
+
+
+class JobListView(JobActionMixin, ListView):
+    model = Job
+    # need employer id to fill
+    # queryset = Job.objects.filter(employer=)
+    template_name = 'jobpost/job_list.html'
+
+
+class JobDetailView(JobActionMixin, DetailView):
+    model = Job
+    template_name = 'jobpost/job_detail.html'

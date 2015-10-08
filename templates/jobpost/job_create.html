@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <li>Create a new employer</li>
-    <form action="{{ get_absolute_url }}" method="post">
+
+    <form action="{% url 'employers:job_list' employer_pk=employer_pk %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Submit"/>

@@ -19,3 +19,6 @@
 {% else %}
     <p>No Employer.</p>
 {% endif %}
+<ul>
+    <li><a href="{% url "employers:job_create" employer_pk=employer.pk %}">Create a jobs</a></li>
+</ul>

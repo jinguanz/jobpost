@@ -141,6 +141,9 @@ class Job(models.Model):
     def __unicode__(self):
         return '{0} {1}'.format(self.title, self.employer.employer_name)
 
+    def get_absolute_url(self):
+        return reverse('employers:job_detail', kwargs={'pk': self.pk})
+
 
 class JobClick(TimeStampedModel):
     """
