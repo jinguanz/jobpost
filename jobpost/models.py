@@ -1,7 +1,8 @@
 from django.db import models
 from django.core.urlresolvers import reverse
-
 from model_utils.models import TimeStampedModel
+
+from .validators import validate_area_code, validate_country_code, validate_remain_code
 
 
 # Create your models here.
@@ -46,10 +47,10 @@ class Account(TimeStampedModel):
     """
     This is abstract user account model
     """
-    email = models.EmailField()
-    tel_country_code = models.CharField(max_length=10, blank=False, default='01')
-    tel_area_code = models.CharField(max_length=10, blank=False)
-    tel_remain = models.CharField(max_length=200, blank=False)
+    email = models.EmailField(unique=True)
+    tel_country_code = models.CharField(max_length=10, blank=False, default='01', validators=[validate_country_code])
+    tel_area_code = models.CharField(max_length=10, blank=False, validators=[validate_area_code])
+    tel_remain = models.CharField(max_length=200, blank=False, validators=[validate_remain_code])
 
     class Meta:
         abstract = True
@@ -142,7 +143,7 @@ class Job(models.Model):
         return '{0} {1}'.format(self.title, self.employer.employer_name)
 
     def get_absolute_url(self):
-        return reverse('employers:job_detail', kwargs={'pk': self.pk})
+        return reverse('employers:job_detail', kwargs={'employer_pk': self.employer.pk, 'pk': self.pk})
 
 
 class JobClick(TimeStampedModel):

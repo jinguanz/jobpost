@@ -1,6 +1,8 @@
 from django.contrib import messages
 from django.views.generic import CreateView, UpdateView, DetailView, ListView
+from django.shortcuts import get_object_or_404
 
+from .forms import JobForm
 from .models import Employer, Job
 
 
@@ -52,13 +54,27 @@ class JobActionMixin(object):
         context['employer_pk'] = self.kwargs['employer_pk']
         return context
 
+        # def form_valid(self, form):
+        #     return super(JobActionMixin, self).form_valid(form)
+        #
+        # def form_invalid(self, form):
+        #     """Customize business logic before show invalid page"""
+        #     return super(JobActionMixin, self).form_invalid(form)
+
 
 class JobCreateView(JobActionMixin, CreateView):
     """Job creation view"""
-    model = Job
-    fields = ('title', 'employer')
+    # model = Job
+    # todo: hide employer id in the form
+    # http://grokbase.com/t/gg/django-users/12bpnwa4jv/seeding-foreign-key-with-known-object-with-class-based-views
+    # fields = ('title', 'description', 'link', 'city', 'state', 'country', 'employer')
+    form_class = JobForm
     template_name = 'jobpost/job_create.html'
     success_msg = 'Job created'
+
+    def get_initial(self):
+        """Initial data for specific field"""
+        return {'employer': self.kwargs['employer_pk']}
 
 
 class JobUpdateView(JobActionMixin, UpdateView):
@@ -69,9 +85,12 @@ class JobUpdateView(JobActionMixin, UpdateView):
 
 class JobListView(JobActionMixin, ListView):
     model = Job
-    # need employer id to fill
-    # queryset = Job.objects.filter(employer=)
     template_name = 'jobpost/job_list.html'
+    # need employer id to fill
+
+    def get_queryset(self):
+        employer = get_object_or_404(Employer, pk=self.kwargs['employer_pk'])
+        return Job.objects.filter(employer=employer)
 
 
 class JobDetailView(JobActionMixin, DetailView):
