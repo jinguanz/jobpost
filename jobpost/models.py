@@ -138,12 +138,13 @@ class Job(models.Model):
     state = models.CharField(max_length=100)
     country = models.CharField(max_length=100)
     employer = models.ForeignKey(Employer, on_delete=models.CASCADE)
+    count = models.IntegerField(default=0, blank=True)
 
     def __unicode__(self):
         return '{0} {1}'.format(self.title, self.employer.employer_name)
 
     def get_absolute_url(self):
-        return reverse('employers:job_detail', kwargs={'employer_pk': self.employer.pk, 'pk': self.pk})
+        return reverse('jobs:all_job_detail', kwargs={'pk': self.pk})
 
 
 class JobClick(TimeStampedModel):

@@ -3,7 +3,7 @@ from django.views.generic import CreateView, UpdateView, DetailView, ListView
 from django.shortcuts import get_object_or_404
 
 from .forms import JobForm
-from .models import Employer, Job
+from .models import Employer, Job, JobClick
 
 
 # Create your views here.
@@ -51,7 +51,8 @@ class JobActionMixin(object):
     def get_context_data(self, **kwargs):
         """Add employer pk to the context"""
         context = super(JobActionMixin, self).get_context_data(**kwargs)
-        context['employer_pk'] = self.kwargs['employer_pk']
+        if 'employer_pk' in self.kwargs:
+            context['employer_pk'] = self.kwargs['employer_pk']
         return context
 
         # def form_valid(self, form):
@@ -62,7 +63,7 @@ class JobActionMixin(object):
         #     return super(JobActionMixin, self).form_invalid(form)
 
 
-class JobCreateView(JobActionMixin, CreateView):
+class EmployerJobCreateView(JobActionMixin, CreateView):
     """Job creation view"""
     # model = Job
     # todo: hide employer id in the form
@@ -77,13 +78,13 @@ class JobCreateView(JobActionMixin, CreateView):
         return {'employer': self.kwargs['employer_pk']}
 
 
-class JobUpdateView(JobActionMixin, UpdateView):
+class EmployerJobUpdateView(JobActionMixin, UpdateView):
     model = Job
     success_msg = 'Job Updated'
     template_name = 'jobpost/job_update.html'
 
 
-class JobListView(JobActionMixin, ListView):
+class EmployerJobListView(JobActionMixin, ListView):
     model = Job
     template_name = 'jobpost/job_list.html'
     # need employer id to fill
@@ -92,7 +93,26 @@ class JobListView(JobActionMixin, ListView):
         employer = get_object_or_404(Employer, pk=self.kwargs['employer_pk'])
         return Job.objects.filter(employer=employer)
 
+    def get_context_data(self, **kwargs):
+        context = super(EmployerJobListView, self).get_context_data(**kwargs)
+        context['number_click'] = len(JobClick.objects.filter(job=self.queryset))
+        return context
+
 
 class JobDetailView(JobActionMixin, DetailView):
     model = Job
     template_name = 'jobpost/job_detail.html'
+
+    def get_object(self, queryset=None):
+        """Add more logic like, #click here"""
+        object = super(JobDetailView, self).get_object()
+        job_click = JobClick(job=object)
+        job_click.save()
+        object.count = object.count + 1
+        object.save()
+        return object
+
+
+class AllJobList(ListView):
+    model = Job
+    template_name = 'jobpost/all_job_list.html'

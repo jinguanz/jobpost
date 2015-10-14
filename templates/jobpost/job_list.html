@@ -1,7 +1,8 @@
 {% if job_list %}
     <ul>
         {% for job in job_list %}
-            <li><a href="{% url 'employers:job_detail' employer_pk=employer_pk pk=job.pk %}">{{ job.title }}</a>
+            <li><a href="{% url 'employers:job_detail' employer_pk=employer_pk pk=job.pk %}">{{ job.title }}</a> Click
+                Times {{ job.count }}
             </li>
         {% endfor %}
     </ul>

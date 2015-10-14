@@ -12,7 +12,7 @@ urlpatterns = [
     url(r'^create/$', views.EmployerCreateView.as_view(), name='create'),
     # ex: /update/
     url(r'^(?P<pk>[0-9]+)/update/$', views.EmployerUpdateView.as_view(), name='update'),
-    url(r'^(?P<employer_pk>[0-9]+)/jobs/$', views.JobListView.as_view(), name='job_list'),
+    url(r'^(?P<employer_pk>[0-9]+)/jobs/$', views.EmployerJobListView.as_view(), name='job_list'),
     url(r'^(?P<employer_pk>[0-9]+)/jobs/(?P<pk>[0-9]+)/$', views.JobDetailView.as_view(), name='job_detail'),
-    url(r'^(?P<employer_pk>[0-9]+)/jobs/create/$', views.JobCreateView.as_view(), name='job_create'),
+    url(r'^(?P<employer_pk>[0-9]+)/jobs/create/$', views.EmployerJobCreateView.as_view(), name='job_create'),
 ]
