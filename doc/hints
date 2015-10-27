@@ -6,3 +6,6 @@ For cbv, if we need to customize validation like clean clean_<field>, we need to
 
 front end country code validation
 http://jackocnr.com/intl-tel-input.html
+
+http://stackoverflow.com/questions/6178816/django-cannot-add-or-update-a-child-row-a-foreign-key-constraint-fails
+for intergrity issue. Django “Cannot add or update a child row: a foreign key constraint fails”

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Job create</title>
-
+    <title></title>
+    <li>Create a new employer</li>
     <form action="{{ get_absolute_url }}" method="post">
         {% csrf_token %}
         {{ form.as_p }}

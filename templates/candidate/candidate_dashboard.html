@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is candidate dashboard</title>
+    {% if can_user %}
+        <p>Welcome to {{ can_user.first_name }} dashboard.</p>
+    {% else %}
+        There is no candidate.
+    {% endif %}
+    <a href="{% url 'candidate:update' can_user.pk %}">Update candidate profile</a>
+
+    <p><a href="{% url 'candidate:logout' %}">Log out</a></p>
+
+    <p><a href="{% url 'jobs:list' %}">Go to job list</a></p>
+</head>
+<body>
+
+</body>
+</html>

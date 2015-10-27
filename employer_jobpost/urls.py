@@ -18,6 +18,8 @@ from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^employers/', include('jobpost.urls', namespace='employers')),
-    url(r'^jobs/', include('jobpost.jobsurl', namespace='jobs'))
+    url(r'^employers/', include('employer.urls', namespace='employer')),
+    url(r'^jobs/', include('jobpost.urls', namespace='jobs')),
+    url(r'^candidates/', include('candidate.urls', namespace='candidate')),
+    url(r'^$', 'employer.views.index', name='index'),
 ]

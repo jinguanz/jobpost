@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+</body>
+</html>
+{% if candidateuser %}
+    <ul>
+        <li><a href="{{ candidateuser.get_absolute_url }}update">Update</a></li>
+        <li>{{ candidateuser.email }}</li>
+        <li>{{ candidateuser.first_name }}</li>
+        <li>{{ candidateuser.last_name }}</li>
+    </ul>
+{% else %}
+    <p>No Candidate User.</p>
+{% endif %}

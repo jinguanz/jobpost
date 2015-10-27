@@ -64,6 +64,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jobpost',
+    'core',
+    'employer',
+    'candidate',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -107,6 +110,8 @@ DATABASES = {
         'NAME': 'employer',
         'USER': 'root',
         # 'PASSWORD': 'zjg',
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;", },
     }
 }
 
@@ -130,3 +135,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+
+AUTH_USER_MODEL = 'core.BaseUser'

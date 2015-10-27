@@ -1,0 +1,77 @@
+{% block content %}
+
+    {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+        {% for error in forms.errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+
+    {% endif %}
+
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert alert-error">
+                    <strong>{{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-error">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+    Current path {{ request.get_full_path }}
+
+    <form method="post" action="{% url 'employer:login' %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>{{ form.username.label_tag }}</td>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag }}</td>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+
+        <input type="submit" value="login"/>
+        {% comment %}
+        {% if next %}
+            <input type="hidden" name="next" value={{ next }}/>
+        {% else %}-->
+            {% if request.get_full_path == '/employers/login/'%}
+               <input type="hidden" name="next" value="/employers/dashboard"/>
+            {% else %}
+                <input type="hidden" name="next" value="/candidates/dashboard"/>
+            {% endif %}
+        {% endif %}
+        {% endcomment %}
+        {% if request.get_full_path == '/employers/login/' %}
+            <input type="hidden" name="next" value="/employers/dashboard"/>
+        {% else %}
+            <input type="hidden" name="next" value="/candidates/dashboard"/>
+        {% endif %}
+
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <p><a href="{% url 'employer:password_reset' %}">Lost password?</a></p>
+    {% if request.get_full_path == '/employers/login/' %}
+        <p><a href="{% url 'employer:create' %}">Registration</a>Employer Registration</p>
+    {% else %}
+        <p><a href="{% url 'candidate:create' %}">Registration</a>Candidate Registration</p>
+    {% endif %}
+
+{% endblock %}

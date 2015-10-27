@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is employer dashboard</title>
+    {% if emp_user %}
+        <p>This is {{ emp_user.company_name }} dashboard.</p>
+        {% if job_click %}
+            {% for job, clicks in job_click.items %}
+                <p><a href="{% url 'jobs:detail' job.pk %}">{{ job.title }} has been clicked {{ job.count }}</a></p>
+                {% for click in clicks %}
+                    {% if click.candidate.first_name %}
+                        <p>Clicked by {{ click.candidate.first_name }}</p>
+                    {% else %}
+                        <p>Clicked by anonymaous user.</p>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% else %}
+            <p>There is no job for {{ emp_user.company_name }}.</p>
+        {% endif %}
+    {% else %}
+        There is no employer.
+    {% endif %}
+    <p><a href="{% url 'employer:update' emp_user.pk %}">Update your profile</a></p>
+
+    <p><a href="{% url 'jobs:create' %}">Create a new job</a></p>
+
+    <p><a href="{% url 'employer:logout' %}">Logout</a></p>
+</head>
+<body>
+
+</body>
+</html>

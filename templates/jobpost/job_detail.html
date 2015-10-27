@@ -12,7 +12,12 @@
     <ul>
         <li>{{ job.title }}</li>
         <li>{{ job.link }}</li>
+        {% if user.is_authenticated %}
+            <p><a href="{% url 'jobs:update' job.pk %}">Update job</a></p>
+        {% endif %}
+
     </ul>
 {% else %}
     <p>No Jobs.</p>
+
 {% endif %}
