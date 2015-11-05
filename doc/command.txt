@@ -2,5 +2,9 @@
 python manage.py shell --settings=jobpost.settings.local
 
 # start mysql in mac
-sudo /usr/local/mysql/support-files/mysql.server start
+
+
 http://coolestguidesontheplanet.com/start-stop-mysql-from-the-command-line-terminal-osx-linux/
+
+# test command
+$ ./manage.py test

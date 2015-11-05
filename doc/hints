@@ -9,3 +9,5 @@ http://jackocnr.com/intl-tel-input.html
 
 http://stackoverflow.com/questions/6178816/django-cannot-add-or-update-a-child-row-a-foreign-key-constraint-fails
 for intergrity issue. Django “Cannot add or update a child row: a foreign key constraint fails”
+
+export DYLD_LIBRARY_PATH=/usr/local/mysql-5.1.67-osx10.6-x86_64/lib:$DYLD_LIBRARY_PATH

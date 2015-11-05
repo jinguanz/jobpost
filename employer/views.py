@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.contrib import messages
 from django.views.generic import CreateView, UpdateView, DetailView, ListView
 from django.shortcuts import get_object_or_404
-
 from django.contrib.auth.decorators import login_required
 
 from jobpost.models import Job, JobClick
@@ -67,7 +66,7 @@ def index(request):
     return render(request, 'employer/index.html')
 
 
-@login_required(login_url='/employers/login')
+@login_required(login_url='/employers/login/')
 def dashboard(request, template='employer/employer_dashboard.html'):
     emp_user = get_object_or_404(EmployerUser, id=request.user.id)
     print emp_user
