@@ -17,7 +17,6 @@ class LoginTest(TestCase):
         self.client = Client()
 
     def test_employer_login(self):
-        print 'employer login test'
         get_response = self.client.get('/employers/login/')
         self.assertEqual(get_response.status_code, 200,
                          'We expect return code is {0} but real code is {1}'.format(200, get_response.status_code))
@@ -28,7 +27,6 @@ class LoginTest(TestCase):
         self.assertEqual(is_login_fail, False, 'Expected {0} but real is {1}'.format(False, is_login_fail))
 
     def test_candidate_lgoin(self):
-        print 'candidate login test'
         response = self.client.get('/candidates/login/')
         self.assertEqual(response.status_code, 200,
                          'We expect return code is {0} but real code is {1}'.format(200, response.status_code))
@@ -53,3 +51,16 @@ class JobTest(TestCase):
         response = self.client.get('/jobs/')
         self.assertEqual(response.status_code, 200,
                          'We expect return code is {0} but real is {1}'.format(200, response.status_code))
+
+# class UserRegistrationTest(TestCase):
+#     def setUp(self):
+#         pass
+#
+#     def test_employer_registration(self):
+#         """
+#         Test employer registration
+#         :return:
+#         """
+#         response = self.client.post('/employers/registration/', {'email': 'test_emp@gmail.com', 'company_name': 'test', 'password1': 'test', 'password2': 'test'})
+#         print response
+#         self.assertEqual(response.status_code, 200)
