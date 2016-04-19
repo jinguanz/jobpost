@@ -1,2 +1,3 @@
 settings/config/*
 doc/todo.txt
+*.pyc
